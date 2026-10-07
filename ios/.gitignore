@@ -1,0 +1,7 @@
+Configuration/Local.xcconfig
+**/.build/
+**/xcuserdata/
+DerivedData/
+*.ipa
+*.xcarchive
+.DS_Store

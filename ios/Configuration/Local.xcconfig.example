@@ -1,0 +1,6 @@
+// Create an iOS OAuth client in the existing rAIzorMail Google Cloud project.
+// Its bundle ID must match PRODUCT_BUNDLE_IDENTIFIER.
+GOOGLE_IOS_CLIENT_ID = YOUR_IOS_CLIENT_ID.apps.googleusercontent.com
+GOOGLE_REVERSED_CLIENT_ID = com.googleusercontent.apps.YOUR_IOS_CLIENT_ID
+// Xcode can fill this after you select your Apple ID's Personal Team.
+DEVELOPMENT_TEAM =

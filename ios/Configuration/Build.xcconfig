@@ -1,0 +1,5 @@
+PRODUCT_BUNDLE_IDENTIFIER = ai.raizorcrest.mail.ios
+GOOGLE_IOS_CLIENT_ID = YOUR_IOS_CLIENT_ID.apps.googleusercontent.com
+GOOGLE_REVERSED_CLIENT_ID = com.googleusercontent.apps.YOUR_IOS_CLIENT_ID
+// Put your iOS client ID and signing team in Local.xcconfig.
+#include? "Local.xcconfig"

@@ -1,0 +1,24 @@
+node_modules/
+dist/
+release/
+.DS_Store
+*.tsbuildinfo
+.env*
+!.env.example
+credentials*.json
+client_secret*.json
+
+# Local development tools and account setup evidence
+/Skills/
+/verification/
+/google-oauth-*.png
+
+# Private credentials and signing material
+accounts.enc*
+*.p12
+*.p8
+*.key
+*.mobileprovision
+*.provisionprofile
+*.log
+__pycache__/

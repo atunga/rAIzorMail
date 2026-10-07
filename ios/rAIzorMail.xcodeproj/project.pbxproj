@@ -1,0 +1,254 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0CB745285A1AFB7BC5651DCD /* rAIzorMail/PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 590D2FDF17C39DB77E9EAB15 /* rAIzorMail/PrivacyInfo.xcprivacy */; };
+		0F6EB3FCAC25F35E7CD234C8 /* rAIzorMail/MessageScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C40230540A94ACE43179439 /* rAIzorMail/MessageScreen.swift */; };
+		17A002E6C87C994F97A35B14 /* rAIzorMail/GoogleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25657B51D604FD2C1F4864B4 /* rAIzorMail/GoogleAPI.swift */; };
+		51C72D9737F5402D401DBFA8 /* rAIzorMail/Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF9A2FC891C628940356C1C4 /* rAIzorMail/Assets.xcassets */; };
+		8AED805913FDD4AE683F5DFB /* rAIzorMail/MailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCA3C6CE9BFED0DF2F2A42A /* rAIzorMail/MailModel.swift */; };
+		99EEAD245A776EBB8146B269 /* rAIzorMail/Gemini.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA4F5F334E9D90F2C0DC842 /* rAIzorMail/Gemini.swift */; };
+		9D71EA10A30E39BE1F305F66 /* rAIzorMail/SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0601ED307526757CD7DD1A0 /* rAIzorMail/SettingsScreen.swift */; };
+		AE30E3975ED291C1B61D730B /* rAIzorMail/rAIzorMailApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF0EA95D7C940BF52C9A318 /* rAIzorMail/rAIzorMailApp.swift */; };
+		B039C5AA795314158BF0044A /* MailCore/Sources/MailCore/MailCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B57C0D24A7F768BE9FEBAF6 /* MailCore/Sources/MailCore/MailCore.swift */; };
+		C33D6CAC03B762F6008EB6B6 /* rAIzorMail/Accounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946B4FFE899163CAE4F7F3CE /* rAIzorMail/Accounts.swift */; };
+		DCAE5361B2284AC5B1A41FA9 /* rAIzorMail/CalendarScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912360DE74E80AAEE1D58FCB /* rAIzorMail/CalendarScreen.swift */; };
+		F0AE8E1A47C112B707D658F7 /* rAIzorMail/ComposeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104F266F4CAE87837B7C3CB2 /* rAIzorMail/ComposeScreen.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		06271BAF49532C879AA3C58B /* rAIzorMail/Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = rAIzorMail/Info.plist; sourceTree = SOURCE_ROOT; };
+		104F266F4CAE87837B7C3CB2 /* rAIzorMail/ComposeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rAIzorMail/ComposeScreen.swift; sourceTree = SOURCE_ROOT; };
+		1C40230540A94ACE43179439 /* rAIzorMail/MessageScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rAIzorMail/MessageScreen.swift; sourceTree = SOURCE_ROOT; };
+		25657B51D604FD2C1F4864B4 /* rAIzorMail/GoogleAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rAIzorMail/GoogleAPI.swift; sourceTree = SOURCE_ROOT; };
+		4AF0EA95D7C940BF52C9A318 /* rAIzorMail/rAIzorMailApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rAIzorMail/rAIzorMailApp.swift; sourceTree = SOURCE_ROOT; };
+		4FCA3C6CE9BFED0DF2F2A42A /* rAIzorMail/MailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rAIzorMail/MailModel.swift; sourceTree = SOURCE_ROOT; };
+		590D2FDF17C39DB77E9EAB15 /* rAIzorMail/PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = rAIzorMail/PrivacyInfo.xcprivacy; sourceTree = SOURCE_ROOT; };
+		5AA4F5F334E9D90F2C0DC842 /* rAIzorMail/Gemini.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rAIzorMail/Gemini.swift; sourceTree = SOURCE_ROOT; };
+		912360DE74E80AAEE1D58FCB /* rAIzorMail/CalendarScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rAIzorMail/CalendarScreen.swift; sourceTree = SOURCE_ROOT; };
+		946B4FFE899163CAE4F7F3CE /* rAIzorMail/Accounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rAIzorMail/Accounts.swift; sourceTree = SOURCE_ROOT; };
+		9B57C0D24A7F768BE9FEBAF6 /* MailCore/Sources/MailCore/MailCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailCore/Sources/MailCore/MailCore.swift; sourceTree = SOURCE_ROOT; };
+		A8792157CB4F27FB949C035F /* rAIzorMail.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = rAIzorMail.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0601ED307526757CD7DD1A0 /* rAIzorMail/SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rAIzorMail/SettingsScreen.swift; sourceTree = SOURCE_ROOT; };
+		B79606FB3AFEA5BD1609ED40 /* Configuration/Build.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Configuration/Build.xcconfig; sourceTree = SOURCE_ROOT; };
+		BF9A2FC891C628940356C1C4 /* rAIzorMail/Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = rAIzorMail/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E2AA269EB967A8853A258BFA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0A3E27B8CA818264D75C8D81 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A8792157CB4F27FB949C035F /* rAIzorMail.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AD936FCBED631FA67E05C3EA = {
+			isa = PBXGroup;
+			children = (
+				946B4FFE899163CAE4F7F3CE /* rAIzorMail/Accounts.swift */,
+				912360DE74E80AAEE1D58FCB /* rAIzorMail/CalendarScreen.swift */,
+				104F266F4CAE87837B7C3CB2 /* rAIzorMail/ComposeScreen.swift */,
+				5AA4F5F334E9D90F2C0DC842 /* rAIzorMail/Gemini.swift */,
+				25657B51D604FD2C1F4864B4 /* rAIzorMail/GoogleAPI.swift */,
+				4FCA3C6CE9BFED0DF2F2A42A /* rAIzorMail/MailModel.swift */,
+				1C40230540A94ACE43179439 /* rAIzorMail/MessageScreen.swift */,
+				B0601ED307526757CD7DD1A0 /* rAIzorMail/SettingsScreen.swift */,
+				4AF0EA95D7C940BF52C9A318 /* rAIzorMail/rAIzorMailApp.swift */,
+				9B57C0D24A7F768BE9FEBAF6 /* MailCore/Sources/MailCore/MailCore.swift */,
+				BF9A2FC891C628940356C1C4 /* rAIzorMail/Assets.xcassets */,
+				590D2FDF17C39DB77E9EAB15 /* rAIzorMail/PrivacyInfo.xcprivacy */,
+				B79606FB3AFEA5BD1609ED40 /* Configuration/Build.xcconfig */,
+				06271BAF49532C879AA3C58B /* rAIzorMail/Info.plist */,
+				0A3E27B8CA818264D75C8D81 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		34A04005BCAF206EEC990BD9 /* rAIzorMail */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B672BF3DA427763BF644BE3 /* Build configuration list for PBXNativeTarget "rAIzorMail" */;
+			buildPhases = (
+				878A52FC5FF6A57D50B7B870 /* Sources */,
+				E2AA269EB967A8853A258BFA /* Frameworks */,
+				41D311A605520FC7B8B9A980 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = rAIzorMail;
+			productName = rAIzorMail;
+			productReference = A8792157CB4F27FB949C035F /* rAIzorMail.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		244210E48437B6556980A702 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+			};
+			buildConfigurationList = 76F8DEC3DFE0BDB465198890 /* Build configuration list for PBXProject "rAIzorMail" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AD936FCBED631FA67E05C3EA;
+			productRefGroup = 0A3E27B8CA818264D75C8D81 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				34A04005BCAF206EEC990BD9 /* rAIzorMail */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		41D311A605520FC7B8B9A980 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				51C72D9737F5402D401DBFA8 /* rAIzorMail/Assets.xcassets in Resources */,
+				0CB745285A1AFB7BC5651DCD /* rAIzorMail/PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		878A52FC5FF6A57D50B7B870 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C33D6CAC03B762F6008EB6B6 /* rAIzorMail/Accounts.swift in Sources */,
+				DCAE5361B2284AC5B1A41FA9 /* rAIzorMail/CalendarScreen.swift in Sources */,
+				F0AE8E1A47C112B707D658F7 /* rAIzorMail/ComposeScreen.swift in Sources */,
+				99EEAD245A776EBB8146B269 /* rAIzorMail/Gemini.swift in Sources */,
+				17A002E6C87C994F97A35B14 /* rAIzorMail/GoogleAPI.swift in Sources */,
+				8AED805913FDD4AE683F5DFB /* rAIzorMail/MailModel.swift in Sources */,
+				0F6EB3FCAC25F35E7CD234C8 /* rAIzorMail/MessageScreen.swift in Sources */,
+				9D71EA10A30E39BE1F305F66 /* rAIzorMail/SettingsScreen.swift in Sources */,
+				AE30E3975ED291C1B61D730B /* rAIzorMail/rAIzorMailApp.swift in Sources */,
+				B039C5AA795314158BF0044A /* MailCore/Sources/MailCore/MailCore.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		07CA1E69F6068DEA30A4DA6B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		2B23A31EEC75B029432F2445 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		594BCDCC96599D88EF772A08 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B79606FB3AFEA5BD1609ED40 /* Configuration/Build.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = rAIzorMail/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_NAME = rAIzorMail;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EDDA600A3F771F810A8065C9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B79606FB3AFEA5BD1609ED40 /* Configuration/Build.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = rAIzorMail/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_NAME = rAIzorMail;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1B672BF3DA427763BF644BE3 /* Build configuration list for PBXNativeTarget "rAIzorMail" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EDDA600A3F771F810A8065C9 /* Debug */,
+				594BCDCC96599D88EF772A08 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		76F8DEC3DFE0BDB465198890 /* Build configuration list for PBXProject "rAIzorMail" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B23A31EEC75B029432F2445 /* Debug */,
+				07CA1E69F6068DEA30A4DA6B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 244210E48437B6556980A702 /* Project object */;
+}
