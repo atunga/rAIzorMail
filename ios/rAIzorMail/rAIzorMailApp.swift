@@ -1,6 +1,7 @@
 import SwiftUI
 
 @main struct rAIzorMailApp: App {
+    @State private var activeTab = 0
     @StateObject private var accounts: Accounts
     @StateObject private var model: MailModel
     @AppStorage("appearance") private var appearance = "dark"
@@ -8,10 +9,10 @@ import SwiftUI
     init() { let accounts = Accounts(); _accounts = StateObject(wrappedValue: accounts); _model = StateObject(wrappedValue: MailModel(accounts: accounts)) }
     var body: some Scene {
         WindowGroup {
-            TabView {
-                MailScreen().tabItem { Label("Mail", systemImage: "envelope") }
-                CalendarScreen().tabItem { Label("Calendar", systemImage: "calendar") }
-                SettingsScreen().tabItem { Label("Settings", systemImage: "gearshape") }
+            TabView(selection: $activeTab) {
+                MailScreen().tabItem { Label("Mail", systemImage: "envelope") }.tag(0)
+                CalendarScreen().tabItem { Label("Calendar", systemImage: "calendar") }.tag(1)
+                SettingsScreen().tabItem { Label("Settings", systemImage: "gearshape") }.tag(2)
             }
             .environmentObject(accounts).environmentObject(model)
             .tint(Crest.orange).preferredColorScheme(appearance == "light" ? .light : .dark)
@@ -24,11 +25,11 @@ import SwiftUI
             .task(id: phase) {
                 guard phase == .active else { return }
                 if !model.loading { await model.loadMail() }
-                await model.loadCalendar()
+                if activeTab == 1 { await model.loadCalendar() }
                 while !Task.isCancelled {
                     do { try await Task.sleep(for: .seconds(60)) } catch { break }
                     if !model.loading && !model.working { await model.loadMail() }
-                    if !model.calendarLoading && !model.working { await model.loadCalendar() }
+                    if activeTab == 1 && !model.calendarLoading && !model.working { await model.loadCalendar() }
                 }
             }
         }
@@ -73,6 +74,7 @@ struct MailScreen: View {
                 if !model.query.isEmpty {
                     HStack { Text(model.query).font(.caption).lineLimit(2); Spacer(); Button("Clear") { model.messages = []; model.query = ""; model.searchText = "" } }.padding(.horizontal).padding(.vertical, 6)
                 }
+                if let notice = model.mailSyncError { Text(notice).font(.caption).foregroundStyle(.secondary).padding(.horizontal).padding(.vertical, 6) }
                 if accounts.secrets.accounts.isEmpty {
                     ContentUnavailableView { Label("Your inbox, a little calmer.", systemImage: "tray") } description: { Text("Connect your Google accounts in Settings. Mail and calendar changes sync with Gmail and your Mac.") } actions: { Button("Connect Google") { Task { await accounts.connect() } }.disabled(accounts.signingIn) }
                 } else {

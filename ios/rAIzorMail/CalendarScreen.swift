@@ -19,6 +19,7 @@ struct CalendarScreen: View {
                         Task { await model.loadCalendar() }
                     }
                 Text("\(model.calendarStart.formatted(date: .abbreviated, time: .omitted)) – \(model.calendarEnd.formatted(date: .abbreviated, time: .omitted))").font(.caption).foregroundStyle(.secondary)
+                if let notice = model.calendarSyncError { Text(notice).font(.caption).foregroundStyle(.secondary).padding(.horizontal) }
                 List {
                     ForEach(model.events) { event in
                         Button { model.eventEditor = event } label: {
@@ -36,10 +37,10 @@ struct CalendarScreen: View {
                     }
                     if model.calendarLoading { ProgressView() }
                     else if model.events.isEmpty { ContentUnavailableView("Room in your day", systemImage: "calendar", description: Text("No events in this date range.")) }
-                }.listStyle(.plain).scrollContentBackground(.hidden).refreshable { await model.reloadFolders(); await model.loadCalendar() }
+                }.listStyle(.plain).scrollContentBackground(.hidden).refreshable { await model.reloadCalendars(); await model.loadCalendar() }
             }.background(Crest.background).navigationTitle("Calendar")
             .toolbar { ToolbarItemGroup(placement: .topBarTrailing) { AccountMenu(); Button { Task { await model.newEvent() } } label: { Image(systemName: "plus") }.accessibilityLabel("New event") } }
-            .task(id: model.selectedAccount + model.accounts.secrets.accounts.map(\.id).joined()) { await model.reloadFolders(); await model.loadCalendar() }
+            .task(id: model.selectedAccount + model.accounts.secrets.accounts.map(\.id).joined()) { await model.reloadCalendars(); await model.loadCalendar() }
         }
     }
 }

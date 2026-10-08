@@ -2,7 +2,7 @@
 
 This is the first native SwiftUI implementation, targeting iOS 17 or later. It uses Gmail and Google Calendar directly; it does not connect to or depend on the Mac app running.
 
-**Status (October 7, 2026):** full iOS Simulator compilation passes with Xcode 27.0. Personal Team signing is configured and the device build completed. The app is installed on the connected iPhone 17 Pro; Developer Mode is enabled. The user confirmed successful launch and Google sign-in on October 7, 2026. The simulator also installed and launched the app, but visual smoke testing is not complete. Cross-device acceptance testing remains pending. The 12 core checks, four mocked service checks, and five XCTest tests pass.
+**Status (October 7, 2026):** full iOS Simulator compilation passes with Xcode 27.0. Personal Team signing is configured and the device build completed. The app is installed on the connected iPhone 17 Pro; Developer Mode is enabled. The user confirmed successful launch and Google sign-in on October 7, 2026. The simulator also installed and launched the app, but visual smoke testing is not complete. Cross-device acceptance testing remains pending. The 12 core checks, ten mocked service checks, and five XCTest tests pass.
 
 ## Install on your own iPhone
 
@@ -34,7 +34,7 @@ The OAuth audience remains External / Testing, so any additional account must be
 | Unsent text still open in the composer | Not synchronized until saved as a Gmail draft. Save before leaving the app; iOS can terminate background apps without showing a confirmation dialog. |
 | Signature, theme, accounts connected, Gemini key/model | Per-device settings in this first version. Configure separately. |
 
-Refresh happens on foreground activation, pull-to-refresh, and approximately every 60 seconds while active. Cached message bodies are short-lived. Background execution on iOS is not continuous, and this personal build does not claim instant closed-app delivery. There is no persistent offline mailbox or queued offline mutation support.
+Mail refreshes on foreground activation, pull-to-refresh, and approximately every 60 seconds while active. Calendar polling runs while the Calendar tab is selected. Overlapping refreshes for the same view share one operation. Cached message bodies are short-lived. Mail changes invalidate only the affected message body; bulk Trash/Move updates confirmed successes locally without an immediate inbox reload. Requests are paced, with separate Gmail and Calendar cooldowns. If Google throttles a bulk operation, remaining messages in that account stay selected for retry while other accounts can continue. Background sync errors appear inline; calendar rate-limit errors are summarized once per account. Background execution on iOS is not continuous, and this personal build does not claim instant closed-app delivery. There is no persistent offline mailbox or queued offline mutation support.
 
 Future background notifications require a server that receives Gmail watch notifications through Google Cloud Pub/Sub, fetches mailbox history changes, and sends APNs notifications. Watches must be renewed and missed history must recover with a full sync. Calendar push notifications require their own channels. APNs setup is outside this free Personal Team build. See [Gmail sync](https://developers.google.com/workspace/gmail/api/guides/sync), [Gmail push](https://developers.google.com/workspace/gmail/api/guides/push), and [Apple background tasks](https://developer.apple.com/documentation/backgroundtasks/refreshing-and-maintaining-your-app-using-background-tasks).
 
@@ -68,7 +68,7 @@ DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcodebuild -project ios
 DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer swift test --package-path ios/MailCore
 ```
 
-`check.sh` runs 12 core checks and four mocked service checks, type-checks the OAuth/Keychain account provider, mail/calendar/Gemini services and view model with the macOS SDK, parses all Swift source, and validates project/plist files. The service checks use a mock account provider and never access actual credentials. The checks do **not** type-check the iPhone SwiftUI/UIKit screens or validate real-device OAuth/Keychain behavior. The separate full iOS build now also type-checks the SwiftUI/UIKit screens; runtime and live account behavior require device testing.
+`check.sh` runs 12 core checks and ten mocked service checks, type-checks the OAuth/Keychain account provider, mail/calendar/Gemini services and view model with the macOS SDK, parses all Swift source, and validates project/plist files. The service checks use a mock account provider and never access actual credentials. The checks do **not** type-check the iPhone SwiftUI/UIKit screens or validate real-device OAuth/Keychain behavior. The separate full iOS build now also type-checks the SwiftUI/UIKit screens; runtime and live account behavior require device testing.
 
 Regenerate the checked-in Xcode project after adding source files with `python3 ios/generate-project.py`. The project only includes `rAIzorMail/*.swift` and `MailCore/Sources/MailCore/*.swift`; mock account providers and checks are excluded from the app target.
 

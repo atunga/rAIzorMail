@@ -27,6 +27,11 @@ struct CalendarItem: Identifiable {
     var etag: String
     var id: String { calendar.id + ":" + eventID }
 }
+struct GoogleRateLimit: LocalizedError {
+    let service: String
+    let retryAt: Date
+    var errorDescription: String? { "\(service) is temporarily limiting requests. Try again after \(retryAt.formatted(date: .omitted, time: .shortened))." }
+}
 @MainActor final class GoogleAPI {
     let accounts: Accounts
     let session: URLSession
@@ -40,33 +45,56 @@ struct CalendarItem: Identifiable {
     func request(_ id: String, _ url: String, method: String = "GET", body: [String: Any]? = nil, etag: String? = nil, retry: Bool = true) async throws -> [String: Any] {
         try Task.checkCancellation()
         guard let target = URL(string: url), ["gmail.googleapis.com", "www.googleapis.com"].contains(target.host ?? ""), target.scheme == "https" else { throw MailFailure("Invalid Google request.") }
-        if let until = cooldown[id], until > Date() { throw MailFailure("Google is temporarily limiting requests. Pull to refresh again shortly.") }
+        let service = url.hasPrefix(gmail) ? "Gmail" : "Google Calendar"
+        let budget = id + ":" + service
         let key = id + ":" + url
         if method == "GET", let entry = cache[key], entry.0 > Date() { return entry.1 }
-        if url.hasPrefix(gmail) {
-            let time = max(nextRequest[id] ?? .distantPast, Date()); nextRequest[id] = time.addingTimeInterval(0.15)
-            let delay = time.timeIntervalSinceNow
-            if delay > 0 { try await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000)) }
+        func checkCooldown() throws {
+            if let until = cooldown[budget], until > Date() { throw GoogleRateLimit(service: service, retryAt: until) }
         }
+        try checkCooldown()
+        // Pace by quota cost, leaving room for the Mac app using the same account.
+        let cost: Double = url.hasSuffix("/send") ? 100 : 20
+        let interval = service == "Gmail" ? cost * 0.025 : 0.2
+        let time = max(nextRequest[budget] ?? .distantPast, Date())
+        nextRequest[budget] = time.addingTimeInterval(interval)
+        let delay = time.timeIntervalSinceNow
+        if delay > 0 { try await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000)) }
         let token = try await accounts.accessToken(id)
+        try Task.checkCancellation()
+        try checkCooldown() // A queued request must observe a limit reported while it waited.
         var req = URLRequest(url: target); req.httpMethod = method; req.timeoutInterval = 45
         req.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
         if let body { req.httpBody = try JSONSerialization.data(withJSONObject: body); req.setValue("application/json", forHTTPHeaderField: "Content-Type") }
         if let etag, !etag.isEmpty { req.setValue(etag, forHTTPHeaderField: "If-Match") }
         let (data, response) = try await session.data(for: req)
+        try Task.checkCancellation()
         guard let http = response as? HTTPURLResponse else { throw MailFailure("No response from Google.") }
         if http.statusCode == 401 && retry { _ = try await accounts.accessToken(id, force: true); return try await request(id, url, method: method, body: body, etag: etag, retry: false) }
         let result = data.isEmpty ? [:] : (try JSONSerialization.jsonObject(with: data) as? [String: Any] ?? [:])
         guard (200..<300).contains(http.statusCode) else {
             let reason = (result["error"] as? [String: Any])?["message"] as? String ?? ""
-            if http.statusCode == 429 || (http.statusCode == 403 && reason.lowercased().contains("quota")) {
-                cooldown[id] = Date().addingTimeInterval(max(60, Double(http.value(forHTTPHeaderField: "Retry-After") ?? "") ?? 60))
-                throw MailFailure("Google is temporarily limiting requests. Your current messages are kept here; try again shortly.")
+            let detail = result["error"] as? [String: Any] ?? [:]
+            let reasons = (detail["errors"] as? [[String: Any]] ?? []).compactMap { $0["reason"] as? String }
+            let limited = reasons.contains { ["rateLimitExceeded", "userRateLimitExceeded", "quotaExceeded"].contains($0) }
+            if http.statusCode == 429 || (http.statusCode == 403 && (limited || reason.lowercased().contains("quota") || reason.lowercased().contains("rate limit"))) {
+                let header = http.value(forHTTPHeaderField: "Retry-After") ?? ""
+                let formatter = DateFormatter(); formatter.locale = Locale(identifier: "en_US_POSIX"); formatter.timeZone = TimeZone(secondsFromGMT: 0); formatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
+                let seconds = Double(header) ?? formatter.date(from: header)?.timeIntervalSinceNow ?? 60
+                let until = Date().addingTimeInterval(max(60, seconds))
+                cooldown[budget] = until; nextRequest[budget] = until
+                throw GoogleRateLimit(service: service, retryAt: until)
             }
             if http.statusCode == 412 { throw MailFailure("This event changed on another device. Refresh it before saving again.") }
             throw MailFailure("Google request failed (\(http.statusCode)). \(reason)")
         }
-        if method != "GET" { cache = cache.filter { !$0.key.hasPrefix(id + ":") } }
+        if method != "GET", service == "Gmail" {
+            if target.path.contains("/messages/"), ["modify", "trash", "untrash"].contains(target.lastPathComponent) {
+                // Keep other message bodies cached; one change must not reload the entire inbox.
+                let messageURL = gmail + "/messages/" + escape(target.deletingLastPathComponent().lastPathComponent) + "?format=full"
+                cache.removeValue(forKey: id + ":" + messageURL)
+            } else { cache = cache.filter { !$0.key.hasPrefix(id + ":" + gmail) } }
+        }
         else if url.contains("?format=full") { if cache.count > 300 { cache.removeAll() }; cache[key] = (Date().addingTimeInterval(45), result) }
         return result
     }
